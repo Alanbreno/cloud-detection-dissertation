@@ -8,7 +8,7 @@ from torch.optim import lr_scheduler
 class MANet_S2_Br(pl.LightningModule):
     def __init__(self, encoder_name, classes, in_channels, learning_rate):
         super().__init__()
-        self.model = smp.Unet(
+        self.model = smp.MAnet(
             encoder_name=encoder_name,
             encoder_weights=None,
             classes=classes,
