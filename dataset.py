@@ -28,13 +28,13 @@ class CoreDataset(Dataset):
         bandas = np.array(bandas)
         
         # Assumindo que as bandas estão nos primeiros canais
-        X = bandas[0:13, :, :].astype(np.float32)
+        X = bandas[0:13, :, :].astype(np.float32)/10000
         
-        imagem_normalizada = np.zeros_like(X)
-        for banda in range(13):
-            imagem_normalizada[banda, :, :] = (X[banda, :, :] - self.medias[banda]) / self.desvios_padroes[banda]
-            
-        X = imagem_normalizada
+        #imagem_normalizada = np.zeros_like(X)
+        #for banda in range(13):
+        #    imagem_normalizada[banda, :, :] = (X[banda, :, :] - self.medias[banda]) / self.desvios_padroes[banda]
+        #    
+        #X = imagem_normalizada
 
         # Assumindo que o alvo está no canal 14 (index 13)
         y = bandas[self.index_mask, :, :].astype(np.int64)
