@@ -28,7 +28,7 @@ class CoreDataset(Dataset):
         bandas = np.array(bandas)
         
         # Assumindo que as bandas estão nos primeiros canais
-        X = bandas[0:13, :, :].astype(np.float32)/10000
+        X = bandas[[1, 2, 3, 7], :, :].astype(np.float32)/10000
         
         #imagem_normalizada = np.zeros_like(X)
         #for banda in range(13):
