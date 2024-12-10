@@ -4,7 +4,6 @@ import pytorch_lightning as pl
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 from dataset import CoreDataset
-import mlstac
 
 # Pipeline de augmentations com Shift e Rotação
 augmentation_pipeline = A.Compose(
@@ -20,18 +19,18 @@ augmentation_pipeline = A.Compose(
 class CoreDataModule(pl.LightningDataModule):
     def __init__(
         self,
+        dataframe: pd.DataFrame,
         batch_size: int = 4,
         train_index_mask: int = 13,
         val_index_mask: int = 13,
         test_index_mask: int = 13,
     ):
         super().__init__()
-        data = mlstac.load(snippet="./drive/MyDrive/CloudSen12+/main.json").metadata
-        
+
         # Separar o DataFrame em datasets de treino, validação e teste
-        self.train_dataset = data[(data['proj_shape'] == 509) & (data['label_type'] == 'high')& (data['split'] == 'train')]
-        self.validation_dataset = data[(data['proj_shape'] == 509) & (data['label_type'] == 'high')& (data['split'] == 'validation')]
-        self.test_dataset = data[(data['proj_shape'] == 509) & (data['label_type'] == 'high')& (data['split'] == 'test')]
+        self.train_dataset = dataframe[dataframe["set_type"] == "train"]
+        self.validation_dataset = dataframe[dataframe["set_type"] == "val"]
+        self.test_dataset = dataframe[dataframe["set_type"] == "test"]
 
         # Definir o batch_size
         self.batch_size = batch_size
@@ -48,7 +47,7 @@ class CoreDataModule(pl.LightningDataModule):
             ),
             batch_size=self.batch_size,
             shuffle=True,
-            num_workers=11
+            num_workers=11,
         )
 
     def val_dataloader(self):
@@ -58,12 +57,11 @@ class CoreDataModule(pl.LightningDataModule):
             ),
             batch_size=self.batch_size,
             num_workers=11,
-            drop_last=True
         )
 
     def test_dataloader(self):
         return torch.utils.data.DataLoader(
             dataset=CoreDataset(self.test_dataset, index_mask=self.test_index_mask),
             batch_size=self.batch_size,
-            num_workers=11
+            num_workers=11,
         )

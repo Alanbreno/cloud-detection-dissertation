@@ -5,10 +5,10 @@ import torch.nn.functional as F
 from torch.optim import lr_scheduler
 
 
-class MANet_S2_Br(pl.LightningModule):
+class UNet_S2_Br(pl.LightningModule):
     def __init__(self, encoder_name, classes, in_channels, learning_rate):
         super().__init__()
-        self.model = smp.MAnet(
+        self.model = smp.Unet(
             encoder_name=encoder_name,
             encoder_weights=None,
             classes=classes,

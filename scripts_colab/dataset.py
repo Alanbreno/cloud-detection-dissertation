@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 from torch.utils.data import Dataset
 import config
-import mlstac
 import torch
+import rasterio
 
 class CoreDataset(Dataset):
     def __init__(self, subset: pd.DataFrame, index_mask, augmentations=None):
@@ -19,16 +19,22 @@ class CoreDataset(Dataset):
         return len(self.subset)
 
     def __getitem__(self, index: int):
-        # Obter o caminho do arquivo a partir do DataFrame
-        bandas = mlstac.get_data(dataset=self.subset.iloc[index], quiet=True).squeeze()
+        img_path = self.subset.iloc[index]["file_path"]
+
+        # Lê todas as bandas da imagem
+        bandas = rasterio.open(img_path).read()
+
+        # Transforma em array numpy
+        bandas = np.array(bandas)
         
         # Assumindo que as bandas estão nos primeiros canais
-        X = bandas[0:13, :, :].astype(np.float32)
-        imagem_normalizada = np.zeros_like(X)
-        for banda in range(13):
-            imagem_normalizada[banda, :, :] = (X[banda, :, :] - self.medias[banda]) / self.desvios_padroes[banda]
-            
-        X = imagem_normalizada
+        X = bandas[[1, 2, 3, 7], :, :].astype(np.float32)/10000
+        
+        #imagem_normalizada = np.zeros_like(X)
+        #for banda in range(13):
+        #    imagem_normalizada[banda, :, :] = (X[banda, :, :] - self.medias[banda]) / self.desvios_padroes[banda]
+        #    
+        #X = imagem_normalizada
 
         # Assumindo que o alvo está no canal 14 (index 13)
         y = bandas[self.index_mask, :, :].astype(np.int64)
