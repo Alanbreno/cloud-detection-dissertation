@@ -11,9 +11,9 @@ class CoreDataset(Dataset):
         self.subset = subset
         self.index_mask = index_mask
         self.augmentations = augmentations
-        estatisticas = np.load(config.DIR_BASE + "CloudSen12+/estatisticas_dataset_512_high_train.npz")
-        self.medias = estatisticas["medias"]
-        self.desvios_padroes = estatisticas["desvios_padroes"]
+        estatisticas = np.load(config.DIR_BASE + "CloudSen12+/max_min_dataset_512_high_train.npz")
+        self.max = estatisticas["maximos"][[1,2,3,7]]
+        self.min = estatisticas["minimos"][[1,2,3,7]]
         
     def __len__(self):
         return len(self.subset)
@@ -28,14 +28,12 @@ class CoreDataset(Dataset):
         bandas = np.array(bandas)
         
         # Assumindo que as bandas estão nos primeiros canais
-        X = bandas[[1, 2, 3, 7], :, :].astype(np.float32)/10000
+        X = bandas[[1, 2, 3, 7], :, :].astype(np.float32)
         
-        #imagem_normalizada = np.zeros_like(X)
-        #for banda in range(13):
-        #    imagem_normalizada[banda, :, :] = (X[banda, :, :] - self.medias[banda]) / self.desvios_padroes[banda]
-        #    
-        #X = imagem_normalizada
-
+        # Normalizando as bandas
+        for i in range(4):
+            X[i] = (X[i] - self.min[i]) / (self.max[i] - self.min[i])
+            
         # Assumindo que o alvo está no canal 14 (index 13)
         y = bandas[self.index_mask, :, :].astype(np.int64)
         

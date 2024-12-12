@@ -1,7 +1,7 @@
 import pytorch_lightning as pl
 from pytorch_lightning.loggers import TensorBoardLogger
 from datamodule import CoreDataModule
-from model import UNet_S2_Br
+from model import Unet_CD_Sentinel2
 import config
 import read_paths_image as rpi
 import metrics
@@ -11,7 +11,7 @@ import metrics
 # Primeiro Treinamento com as imagens 512x512
 tb_logger = TensorBoardLogger(config.DIR_LOG, name=config.NAME_EFFICIENTNETB1)
 
-# Gera o dataframe com as imagens 512x512 e 2048x2048
+# Gera o dataframe com as imagens 512x512
 df_512 = rpi.get_image_paths(config.DIR_BASE)
 
 # Define the datamodule
@@ -21,7 +21,7 @@ datamodule = CoreDataModule(
 )
 
 # Define the model
-model = UNet_S2_Br(
+model = Unet_CD_Sentinel2(
     encoder_name=config.ENCODER_NAME_EFFICIENTNETB1,
     classes=config.CLASSES,
     in_channels=config.IN_CHANNELS,
@@ -56,7 +56,7 @@ trainer = pl.Trainer(
 # Start the training
 trainer.fit(model=model, datamodule=datamodule)
 # Carregar o melhor modelo diretamente
-model = UNet_S2_Br.load_from_checkpoint(
+model = Unet_CD_Sentinel2.load_from_checkpoint(
     checkpoint_callback.best_model_path,
     encoder_name=config.ENCODER_NAME_EFFICIENTNETB1,
     classes=config.CLASSES,
