@@ -15,34 +15,22 @@ augmentation_pipeline = A.Compose(
     ]
 )
 
-
 class CoreDataModule(pl.LightningDataModule):
-    def __init__(
-        self,
-        dataframe: pd.DataFrame,
-        batch_size: int = 4,
-        train_index_mask: int = 13,
-        val_index_mask: int = 13,
-        test_index_mask: int = 13,
-    ):
+    def __init__(self, dataframe: pd.DataFrame, batch_size: int = 4):
         super().__init__()
 
         # Separar o DataFrame em datasets de treino, validação e teste
-        self.train_dataset = dataframe[dataframe["set_type"] == "train"]
-        self.validation_dataset = dataframe[dataframe["set_type"] == "val"]
-        self.test_dataset = dataframe[dataframe["set_type"] == "test"]
+        self.train_dataset = dataframe[dataframe["tortilla:data_split"] == "train"]
+        self.validation_dataset = dataframe[dataframe["tortilla:data_split"] == "validation"]
+        self.test_dataset = dataframe[dataframe["tortilla:data_split"] == "test"]
 
         # Definir o batch_size
         self.batch_size = batch_size
-        self.train_index_mask = train_index_mask
-        self.val_index_mask = val_index_mask
-        self.test_index_mask = test_index_mask
 
     def train_dataloader(self):
         return torch.utils.data.DataLoader(
             dataset=CoreDataset(
                 self.train_dataset,
-                index_mask=self.train_index_mask,
                 augmentations=augmentation_pipeline,
             ),
             batch_size=self.batch_size,
@@ -53,15 +41,14 @@ class CoreDataModule(pl.LightningDataModule):
     def val_dataloader(self):
         return torch.utils.data.DataLoader(
             dataset=CoreDataset(
-                self.validation_dataset, index_mask=self.val_index_mask
-            ),
+                self.validation_dataset),
             batch_size=self.batch_size,
             num_workers=11,
         )
 
     def test_dataloader(self):
         return torch.utils.data.DataLoader(
-            dataset=CoreDataset(self.test_dataset, index_mask=self.test_index_mask),
+            dataset=CoreDataset(self.test_dataset),
             batch_size=self.batch_size,
             num_workers=11,
         )

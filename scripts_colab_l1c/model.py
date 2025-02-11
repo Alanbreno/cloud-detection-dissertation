@@ -5,7 +5,7 @@ import torch.nn.functional as F
 from torch.optim import lr_scheduler
 
 
-class UNet_S2_Br(pl.LightningModule):
+class UNet_CD_Sentinel_2(pl.LightningModule):
     def __init__(self, encoder_name, classes, in_channels, learning_rate):
         super().__init__()
         self.model = smp.Unet(
@@ -31,21 +31,16 @@ class UNet_S2_Br(pl.LightningModule):
         fn = torch.cat([x["fn"] for x in outputs])
         tn = torch.cat([x["tn"] for x in outputs])
 
-        accuracy = smp.metrics.accuracy(tp, fp, fn, tn, reduction="macro")
-        acuracia_balanceada = smp.metrics.balanced_accuracy(tp, fp, fn, tn, reduction="macro")
-        iou = smp.metrics.iou_score(tp, fp, fn, tn, reduction="macro")
-        f1_score = smp.metrics.f1_score(tp, fp, fn, tn, reduction="macro")
-        f2_score = smp.metrics.fbeta_score(tp, fp, fn, tn, beta=2, reduction="macro")
-        recall = smp.metrics.recall(tp, fp, fn, tn, reduction="macro")
+        accuracy = smp.metrics.accuracy(tp, fp, fn, tn, reduction="micro")
+        iou = smp.metrics.iou_score(tp, fp, fn, tn, reduction="micro")
+        f1_score = smp.metrics.f1_score(tp, fp, fn, tn, reduction="micro")
+
         
 
         metrics = {
             f"{stage}_acuracia": accuracy,
-            f"{stage}_acuracia_balanceada": acuracia_balanceada,
             f"{stage}_dataset_iou": iou,
             f"{stage}_f1_score": f1_score,
-            f"{stage}_f2_score": f2_score,
-            f"{stage}_recall": recall,
         }
 
         self.log_dict(metrics, on_epoch=True)
