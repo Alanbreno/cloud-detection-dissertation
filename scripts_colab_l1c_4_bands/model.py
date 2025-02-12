@@ -5,7 +5,7 @@ import torch.nn.functional as F
 from torch.optim import lr_scheduler
 
 
-class Unet_CD_Sentinel2(pl.LightningModule):
+class UNet_CD_Sentinel_2(pl.LightningModule):
     def __init__(self, encoder_name, classes, in_channels, learning_rate):
         super().__init__()
         self.model = smp.Unet(
@@ -13,7 +13,6 @@ class Unet_CD_Sentinel2(pl.LightningModule):
             encoder_weights=None,
             classes=classes,
             in_channels=in_channels,
-            decoder_attention_type="scse",
         )
         self.loss = torch.nn.CrossEntropyLoss()
         self.lr = learning_rate
@@ -32,17 +31,16 @@ class Unet_CD_Sentinel2(pl.LightningModule):
         fn = torch.cat([x["fn"] for x in outputs])
         tn = torch.cat([x["tn"] for x in outputs])
 
-        accuracy = smp.metrics.accuracy(tp, fp, fn, tn, reduction="macro")
-        iou = smp.metrics.iou_score(tp, fp, fn, tn, reduction="macro")
-        f1_score = smp.metrics.f1_score(tp, fp, fn, tn, reduction="macro")
-        recall = smp.metrics.recall(tp, fp, fn, tn, reduction="macro")
+        accuracy = smp.metrics.accuracy(tp, fp, fn, tn, reduction="micro")
+        iou = smp.metrics.iou_score(tp, fp, fn, tn, reduction="micro")
+        f1_score = smp.metrics.f1_score(tp, fp, fn, tn, reduction="micro")
+
         
 
         metrics = {
             f"{stage}_acuracia": accuracy,
             f"{stage}_dataset_iou": iou,
             f"{stage}_f1_score": f1_score,
-            f"{stage}_recall": recall,
         }
 
         self.log_dict(metrics, on_epoch=True)

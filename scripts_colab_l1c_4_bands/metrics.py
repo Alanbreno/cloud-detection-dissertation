@@ -33,23 +33,19 @@ def calculate_metrics(module, model):
     
     for reduction in reductions:
         acuracia = smp.metrics.accuracy(tp, fp, fn, tn, reduction=reduction)
-        acuracia_balanceada = smp.metrics.balanced_accuracy(
-            tp, fp, fn, tn, reduction=reduction
-        )
         iou = smp.metrics.iou_score(tp, fp, fn, tn, reduction=reduction)
         f1_score = smp.metrics.f1_score(tp, fp, fn, tn, reduction=reduction)
-        f2_score = smp.metrics.fbeta_score(
-            tp, fp, fn, tn, beta=2, reduction=reduction
-        )
         recall = smp.metrics.recall(tp, fp, fn, tn, reduction=reduction)
+        precision = smp.metrics.precision(tp, fp, fn, tn, reduction=reduction)
+        sensitivity = smp.metrics.sensitivity(tp, fp, fn, tn, reduction=reduction)
 
         print(f"Redução: {reduction}")
         print(f"Acurácia no conjunto de teste: {acuracia:.4f}")
-        print(f"Acurácia Balanceada no conjunto de teste: {acuracia_balanceada:.4f}")
         print(f"IoU no conjunto de teste: {iou:.4f}")
         print(f"F1 no conjunto de teste: {f1_score:.4f}")
-        print(f"F2 no conjunto de teste: {f2_score:.4f}")
         print(f"Recall no conjunto de teste: {recall:.4f}")
+        print(f"Precisião no conjunto de teste: {precision:.4f}")
+        print(f"Sensibilidade no conjunto de teste: {sensitivity:.4f}")
         print("\n")
 
-    return acuracia, acuracia_balanceada, iou, f1_score, f2_score, recall
+    return acuracia, iou, f1_score, recall, precision, sensitivity
