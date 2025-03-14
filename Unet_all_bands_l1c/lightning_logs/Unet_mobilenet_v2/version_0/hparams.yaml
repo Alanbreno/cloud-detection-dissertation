@@ -1,0 +1,4 @@
+classes: 4
+encoder_name: mobilenet_v2
+in_channels: 13
+learning_rate: 0.001

@@ -1,0 +1,4 @@
+classes: 4
+encoder_name: efficientnet-b1
+in_channels: 13
+learning_rate: 0.001

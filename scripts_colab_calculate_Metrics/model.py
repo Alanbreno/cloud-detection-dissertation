@@ -36,7 +36,6 @@ class UNet_CD_Sentinel_2(pl.LightningModule):
         f1_score = smp.metrics.f1_score(tp, fp, fn, tn, reduction="micro")
 
         
-
         metrics = {
             f"{stage}_acuracia": accuracy,
             f"{stage}_dataset_iou": iou,
