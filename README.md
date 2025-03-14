@@ -48,11 +48,16 @@ Foram treinados **8 modelos** com variações nos seguintes aspectos:
 ---
 
 ## 📁 Estrutura do Repositório
-├── data/ # Scripts para preparação dos dados 
+├── data/ # Scripts para preparação dos dados
+
 ├── models/ # Modelos treinados (ou links para download) 
+
 ├── notebooks/ # Notebooks de treinamento e avaliação 
+
 ├── utils/ # Funções auxiliares 
+
 ├── main.py # Script principal para treino/teste 
+
 └── README.md # Este arquivo
 
 ## 📊 Resultados
