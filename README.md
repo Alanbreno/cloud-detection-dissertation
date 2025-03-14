@@ -38,25 +38,19 @@ Foram treinados **8 modelos** com variações nos seguintes aspectos:
 ## 🚀 Tecnologias Utilizadas
 
 - **Python**
-- **Pytorch**
-- **Pytorch-lightning**
-- **Segmentations-models-pytorch**
-- **UNet com encoders EfficientNet-B1 e MobileNet-V2**
+- **[Pytorch](https://pytorch.org/)**
+- **[Pytorch-lightning](https://lightning.ai/docs/pytorch/stable/)**
+- **[Segmentations-models-pytorch(SMP)](https://github.com/qubvel-org/segmentation_models.pytorch)**
+- **UNet com encoders EfficientNet-B1 e MobileNet-V2 através do SMP**
 - Manipulação de imagens: **NumPy**, **Rasterio**
 - Visualização de dados: **Matplotlib**
 
 ---
 
 ## 📁 Estrutura do Repositório
-├── data/ # Scripts para preparação dos dados
+├── scripts_colab_**l1c/l2a**_**4/all**_bands/ # Scripts e Notebooks para treinamento e teste dos modelos. L1C ou L2A é referente ao nível de processamento dos imagens. All ou 4 é referente ao número de bandas usadas na entrada dos modelos.
 
-├── models/ # Modelos treinados (ou links para download) 
-
-├── notebooks/ # Notebooks de treinamento e avaliação 
-
-├── utils/ # Funções auxiliares 
-
-├── main.py # Script principal para treino/teste 
+├── Unet_**all/4**_bands _**l1c/l2a**/ # Logs de treinamento validação e teste, ckeckpoints e modelos salvos. 
 
 └── README.md # Este arquivo
 
