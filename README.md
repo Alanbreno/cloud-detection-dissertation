@@ -57,6 +57,8 @@ Foram treinados **8 modelos** com variações nos seguintes aspectos:
 ## 📊 Resultados
 
 ## 📝 Referências
+Esta Dissertação: _Modelos de Detecção de Nuvens em Imagens Mulespectrais do Sentinel-2_, Alan Breno Soares Corrêa, Programa de Pós Graduação em Engenharia Elétrica (PPGEE), Universidade Federal do Pará (UFPA), 2025.
 
+## 🤝 Agradecimentos
 
 
