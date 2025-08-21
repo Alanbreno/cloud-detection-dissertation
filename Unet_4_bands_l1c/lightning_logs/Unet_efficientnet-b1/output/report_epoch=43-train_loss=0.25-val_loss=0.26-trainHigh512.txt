@@ -1,0 +1,25 @@
+
+======================================================
+        RELATÓRIO DE AVALIAÇÃO FINAL
+======================================================
+Checkpoint: epoch=43-train_loss=0.25-val_loss=0.26-trainHigh512.ckpt
+
+MÉTRICAS GERAIS:
+--------------------------------
+Acurácia Geral: 0.8972
+IoU (Macro):    0.7195
+IoU (Ponderado):0.8198
+
+RELATÓRIO DETALHADO POR CLASSE:
+--------------------------------
+                 precision    recall  f1-score   support
+
+      Ceu Limpo     0.9334    0.9476    0.9404 136267815
+  Nuvem Espessa     0.9064    0.9306    0.9183  73075814
+     Nuvem Fina     0.7188    0.6369    0.6754  21985068
+Sombra de Nuvem     0.8002    0.7498    0.7741  24261703
+
+       accuracy                         0.8972 255590400
+      macro avg     0.8397    0.8162    0.8271 255590400
+   weighted avg     0.8946    0.8972    0.8955 255590400
+

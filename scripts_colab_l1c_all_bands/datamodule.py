@@ -35,7 +35,7 @@ class CoreDataModule(pl.LightningDataModule):
             ),
             batch_size=self.batch_size,
             shuffle=True,
-            num_workers=11,
+            num_workers=1,
         )
 
     def val_dataloader(self):
@@ -43,12 +43,12 @@ class CoreDataModule(pl.LightningDataModule):
             dataset=CoreDataset(
                 self.validation_dataset),
             batch_size=self.batch_size,
-            num_workers=11,
+            num_workers=1,
         )
 
     def test_dataloader(self):
         return torch.utils.data.DataLoader(
             dataset=CoreDataset(self.test_dataset),
             batch_size=self.batch_size,
-            num_workers=11,
+            num_workers=1,
         )
