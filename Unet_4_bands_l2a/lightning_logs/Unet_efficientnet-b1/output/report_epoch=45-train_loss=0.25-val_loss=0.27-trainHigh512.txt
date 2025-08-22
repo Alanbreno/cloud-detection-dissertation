@@ -1,0 +1,44 @@
+
+======================================================
+        RELATÓRIO DE AVALIAÇÃO FINAL
+======================================================
+Checkpoint: epoch=45-train_loss=0.25-val_loss=0.27-trainHigh512.ckpt
+
+MÉTRICAS GERAIS (scikit-learn):
+--------------------------------
+Acurácia Geral: 0.8973
+IoU (Micro):    0.8138
+IoU (Macro):    0.7214
+IoU (Ponderado):0.8197
+
+F1 Score (Micro):    0.8973
+F1 Score (Macro):    0.8289
+F1 Score (Ponderado):0.8958
+--------------------------------
+--------------------------------
+MÉTRICAS GERAIS (Segmentation Models PyTorch)
+--------------------------------
+Acurácia (Micro): 0.9487
+Acurácia (Macro): 0.9487
+IoU (Micro):     0.8138
+IoU (Macro):     0.7214
+F1 Score (Micro): 0.8973
+F1 Score (Macro): 0.8289
+Recall (Micro):  0.8973
+Recall (Macro):  0.8177
+Precision (Micro): 0.8973
+Precision (Macro): 0.8416
+Sensibilidade (Micro): 0.8973
+
+
+                 precision    recall  f1-score   support
+
+      Ceu Limpo     0.9293    0.9495    0.9393 136267815
+  Nuvem Espessa     0.9137    0.9247    0.9192  73075814
+     Nuvem Fina     0.7200    0.6553    0.6861  21985068
+Sombra de Nuvem     0.8032    0.7411    0.7709  24261703
+
+       accuracy                         0.8973 255590400
+      macro avg     0.8416    0.8177    0.8289 255590400
+   weighted avg     0.8949    0.8973    0.8958 255590400
+

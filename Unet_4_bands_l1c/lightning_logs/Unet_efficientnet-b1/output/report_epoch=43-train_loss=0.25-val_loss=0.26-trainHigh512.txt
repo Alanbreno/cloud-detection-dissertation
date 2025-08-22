@@ -4,14 +4,33 @@
 ======================================================
 Checkpoint: epoch=43-train_loss=0.25-val_loss=0.26-trainHigh512.ckpt
 
-MÉTRICAS GERAIS:
+MÉTRICAS GERAIS (scikit-learn):
 --------------------------------
 Acurácia Geral: 0.8972
+IoU (Micro):    0.8136
 IoU (Macro):    0.7195
 IoU (Ponderado):0.8198
 
-RELATÓRIO DETALHADO POR CLASSE:
+F1 Score (Micro):    0.8972
+F1 Score (Macro):    0.8271
+F1 Score (Ponderado):0.8955
 --------------------------------
+--------------------------------
+MÉTRICAS GERAIS (Segmentation Models PyTorch)
+--------------------------------
+Acurácia (Micro): 0.9486
+Acurácia (Macro): 0.9486
+IoU (Micro):     0.8136
+IoU (Macro):     0.7195
+F1 Score (Micro): 0.8972
+F1 Score (Macro): 0.8271
+Recall (Micro):  0.8972
+Recall (Macro):  0.8162
+Precision (Micro): 0.8972
+Precision (Macro): 0.8397
+Sensibilidade (Micro): 0.8972
+
+
                  precision    recall  f1-score   support
 
       Ceu Limpo     0.9334    0.9476    0.9404 136267815
